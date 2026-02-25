@@ -1,1 +1,482 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bungalow Market | Neighborhood Market</title>
+  <meta name="description" content="Bungalow Market is a neighborhood market in Springfield, Oregon with groceries, snacks, household essentials, pet supplies, and beer." />
+  <style>
+    :root{
+      --bg:#ffffff;
+      --text:#0f172a;
+      --muted:#475569;
+      --line:#e2e8f0;
+      --soft:#f8fafc;
+      --soft2:#f1f5f9;
+      --accent:#16a34a;
+      --accent2:#0ea5e9;
+      --shadow: 0 10px 30px rgba(2,6,23,.08);
+      --radius: 16px;
+      --radius2: 22px;
+      --max: 1100px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:var(--bg);
+      line-height:1.45;
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 20px;}
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      background: rgba(255,255,255,.82);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid var(--line);
+    }
+    .topbar .row{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+      gap:16px;
+    }
+    .brand{display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:-.02em;}
+    .logo{
+      width:38px; height:38px; border-radius:12px;
+      background: linear-gradient(135deg, rgba(22,163,74,.18), rgba(14,165,233,.18));
+      border:1px solid var(--line);
+      display:grid; place-items:center;
+      box-shadow: 0 6px 18px rgba(2,6,23,.06);
+      flex:0 0 auto;
+    }
+    .logo svg{width:22px;height:22px}
+    nav{display:flex; gap:18px; color:var(--muted); font-weight:600; font-size:14px;}
+    nav a{padding:8px 10px; border-radius:12px}
+    nav a:hover{background:var(--soft2); color:var(--text)}
+    .btns{display:flex; gap:10px; align-items:center}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px; padding:10px 14px; border-radius:999px;
+      border:1px solid var(--line); background: var(--bg);
+      font-weight:700; font-size:14px;
+      box-shadow: 0 1px 0 rgba(2,6,23,.02);
+      cursor:pointer; transition:.15s ease; white-space:nowrap;
+    }
+    .btn:hover{transform: translateY(-1px); box-shadow: 0 10px 22px rgba(2,6,23,.08)}
+    .btn.primary{
+      background: linear-gradient(180deg, rgba(22,163,74,1), rgba(21,128,61,1));
+      border-color: rgba(22,163,74,.35); color:white;
+    }
+    .btn.secondary{
+      background: linear-gradient(180deg, rgba(14,165,233,1), rgba(2,132,199,1));
+      border-color: rgba(14,165,233,.35); color:white;
+    }
+    .hero{
+      background:
+        radial-gradient(900px 380px at 15% 10%, rgba(22,163,74,.14), transparent 60%),
+        radial-gradient(900px 380px at 85% 0%, rgba(14,165,233,.14), transparent 60%),
+        linear-gradient(180deg, #ffffff, #ffffff 40%, #f8fafc);
+      border-bottom:1px solid var(--line);
+    }
+    .hero .grid{
+      display:grid; grid-template-columns: 1.25fr .75fr;
+      gap:26px; padding:44px 0 34px; align-items:stretch;
+    }
+    .badge{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:8px 12px; border-radius:999px;
+      background: rgba(22,163,74,.10);
+      border:1px solid rgba(22,163,74,.18);
+      font-weight:700; color:#14532d; font-size:13px; width:fit-content;
+    }
+    h1{font-size:44px; line-height:1.05; margin:14px 0 12px; letter-spacing:-.03em;}
+    .sub{font-size:17px; color:var(--muted); max-width:56ch; margin:0 0 18px;}
+    .heroActions{display:flex; gap:12px; flex-wrap:wrap; margin:18px 0 12px}
+    .mini{display:flex; gap:18px; flex-wrap:wrap; color:var(--muted); font-weight:650; font-size:14px; margin-top:12px;}
+    .mini span{display:inline-flex; gap:8px; align-items:center}
+    .card{
+      background: rgba(255,255,255,.9);
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .card .inner{padding:18px}
+    .statRow{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px}
+    .stat{
+      border:1px solid var(--line);
+      background: var(--soft);
+      border-radius: 16px;
+      padding:12px;
+    }
+    .stat .big{font-size:22px; font-weight:850; letter-spacing:-.02em}
+    .stat .small{color:var(--muted); font-weight:650; font-size:13px; margin-top:2px}
+    .section{padding:44px 0}
+    .section h2{font-size:28px; margin:0 0 10px; letter-spacing:-.02em;}
+    .section p.lead{margin:0 0 22px; color:var(--muted); max-width:70ch}
+    .features{display:grid; grid-template-columns: repeat(4,1fr); gap:14px;}
+    .feature{
+      border:1px solid var(--line);
+      background: var(--bg);
+      border-radius: var(--radius);
+      padding:16px;
+      box-shadow: 0 8px 22px rgba(2,6,23,.04);
+    }
+    .feature .icon{
+      width:36px;height:36px;border-radius:12px;
+      background: var(--soft2);
+      border:1px solid var(--line);
+      display:grid; place-items:center;
+      margin-bottom:10px;
+    }
+    .feature h3{margin:0 0 6px; font-size:15px}
+    .feature p{margin:0; color:var(--muted); font-size:14px}
+    .twoCol{display:grid; grid-template-columns: 1fr 1fr; gap:16px; align-items:stretch;}
+    .reviewGrid{display:grid; grid-template-columns: repeat(3,1fr); gap:14px;}
+    .review{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      padding:16px;
+      background: var(--bg);
+      box-shadow: 0 8px 22px rgba(2,6,23,.04);
+    }
+    .review .top{display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:10px;}
+    .pill{
+      font-size:12px; font-weight:800;
+      color:#14532d;
+      background: rgba(22,163,74,.10);
+      border:1px solid rgba(22,163,74,.18);
+      padding:6px 10px;
+      border-radius:999px;
+      white-space:nowrap;
+    }
+    .review p{margin:0; color:var(--muted); font-size:14px}
+    .review .by{margin-top:12px; font-weight:800; font-size:13px; color:var(--text)}
+    .mapCard{
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      overflow:hidden;
+      background: var(--bg);
+      box-shadow: var(--shadow);
+      display:flex; flex-direction:column;
+    }
+    .mapTop{padding:16px; border-bottom:1px solid var(--line); background: linear-gradient(180deg, #ffffff, #f8fafc);}
+    .mapTop .title{font-weight:900; letter-spacing:-.02em}
+    .mapTop .meta{color:var(--muted); font-weight:650; font-size:14px; margin-top:4px}
+    .mapBody{padding:16px; display:grid; gap:10px}
+    .kv{display:flex; justify-content:space-between; gap:12px; color:var(--muted); font-weight:650; font-size:14px}
+    .kv strong{color:var(--text)}
+    .ctaBand{
+      border-top:1px solid var(--line);
+      background: var(--soft);
+      padding:16px;
+      display:flex; gap:12px; flex-wrap:wrap; align-items:center; justify-content:space-between;
+    }
+    footer{border-top:1px solid var(--line); background: #ffffff; padding:26px 0; color:var(--muted); font-size:14px;}
+    .fine{font-size:12px; color:#64748b}
+    .hideMobile{display:inline-flex}
+    @media (max-width: 980px){
+      .hero .grid{grid-template-columns:1fr; padding:34px 0 26px}
+      .features{grid-template-columns: repeat(2,1fr)}
+      .twoCol{grid-template-columns: 1fr}
+      .reviewGrid{grid-template-columns: 1fr}
+      nav{display:none}
+      h1{font-size:38px}
+    }
+  </style>
+</head>
 
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <div class="row">
+        <div class="brand">
+          <div class="logo" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M4 11.5c0-3.6 2.9-6.5 6.5-6.5H20v2.2h-9.5A4.3 4.3 0 0 0 6.2 11.5 4.3 4.3 0 0 0 10.5 15H20v2.2h-9.5C6.9 17.2 4 15.1 4 11.5Z" fill="rgba(22,163,74,.9)"/>
+              <path d="M20 12.9h-8.8a3.4 3.4 0 1 1 0-6.8H20v2.2h-8.8a1.2 1.2 0 1 0 0 2.4H20v2.2Z" fill="rgba(14,165,233,.9)"/>
+            </svg>
+          </div>
+          <div>
+            <div style="font-size:15px;">Bungalow Market</div>
+            <div style="font-size:12px;color:var(--muted);font-weight:700;margin-top:2px;">Neighborhood market</div>
+          </div>
+        </div>
+
+        <nav aria-label="Primary">
+          <a href="#about">About</a>
+          <a href="#highlights">Highlights</a>
+          <a href="#reviews">Reviews</a>
+          <a href="#visit">Visit</a>
+        </nav>
+
+        <div class="btns">
+          <a class="btn hideMobile" href="#visit">Hours & Location</a>
+          <a class="btn secondary" href="#visit">Get Directions</a>
+          <!-- Add phone later if you want; leaving as jump for now -->
+          <a class="btn primary" href="#visit">Call</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div class="grid">
+          <div>
+            <div class="badge">
+              <span aria-hidden="true">⭐</span>
+              <span>4.2 rating • 200+ reviews</span>
+            </div>
+
+            <h1>A clean, friendly neighborhood market—fast in, fast out.</h1>
+            <p class="sub">
+              Groceries and snacks alongside household essentials, pet supplies, and beer—served with a local, community-first vibe.
+            </p>
+
+            <div class="heroActions">
+              <a class="btn secondary" href="#visit">Get Directions</a>
+              <a class="btn primary" href="#visit">Call the Store</a>
+              <a class="btn" href="#reviews">Read Reviews</a>
+            </div>
+
+            <div class="mini">
+              <span>✅ Quick stops</span>
+              <span>✅ Friendly staff</span>
+              <span>✅ Local essentials</span>
+              <span>✅ Snacks & drinks</span>
+            </div>
+
+            <p class="fine" style="margin-top:14px;">
+              *Swap in the official phone number + exact hours if you want this to be production-ready.
+            </p>
+          </div>
+
+          <aside class="card" aria-label="Quick info card">
+            <div class="inner">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px;">
+                <div>
+                  <div style="font-weight:900; letter-spacing:-.02em; font-size:16px;">Bungalow Market</div>
+                  <div style="color:var(--muted); font-weight:650; font-size:14px; margin-top:4px;">
+                    Neighborhood market • Springfield, OR
+                  </div>
+                </div>
+                <div class="pill">Local favorite</div>
+              </div>
+
+              <div style="margin-top:14px; color:var(--muted); font-weight:650; font-size:14px;">
+                <strong style="color:var(--text)">Address:</strong> 30 E St, Springfield, OR 97477
+              </div>
+
+              <div class="statRow">
+                <div class="stat">
+                  <div class="big">4.2 ⭐</div>
+                  <div class="small">Google reviews</div>
+                </div>
+                <div class="stat">
+                  <div class="big">Decades</div>
+                  <div class="small">Local business</div>
+                </div>
+              </div>
+
+              <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+                <a class="btn secondary" href="#visit">Directions</a>
+                <a class="btn" href="#reviews">Reviews</a>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="wrap">
+        <h2>About</h2>
+        <p class="lead">
+          Bungalow Market is a long-running neighborhood stop for essentials—groceries, snacks, household items, pet supplies, and beer.
+          This simple website helps customers find you quickly, trust you instantly, and stop in more often.
+        </p>
+
+        <div class="features" id="highlights">
+          <div class="feature">
+            <div class="icon" aria-hidden="true">🛒</div>
+            <h3>Everyday essentials</h3>
+            <p>Milk, eggs, cheese, snacks, soda, ice and more.</p>
+          </div>
+          <div class="feature">
+            <div class="icon" aria-hidden="true">🎟️</div>
+            <h3>Lottery</h3>
+            <p>A quick and convenient stop for lottery tickets.</p>
+          </div>
+          <div class="feature">
+            <div class="icon" aria-hidden="true">🐾</div>
+            <h3>Pet supplies</h3>
+            <p>Convenient pet basics for the neighborhood.</p>
+          </div>
+          <div class="feature">
+            <div class="icon" aria-hidden="true">🍺</div>
+            <h3>Beer available</h3>
+            <p>Easy pickup for evenings, weekends, and gatherings.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reviews" class="section" style="background:var(--soft); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+      <div class="wrap">
+        <h2>What customers say</h2>
+        <p class="lead">
+          A few real customer notes that capture what makes this place special.
+        </p>
+
+        <div class="reviewGrid">
+          <div class="review">
+            <div class="top">
+              <div style="font-weight:900;">“Anything you need”</div>
+              <div class="pill">Neighborhood</div>
+            </div>
+            <p>“Like its always has been, a neighborhood market that has anything you need.. from a convenience store.”</p>
+            <div class="by">— Google review</div>
+          </div>
+
+          <div class="review">
+            <div class="top">
+              <div style="font-weight:900;">Community support</div>
+              <div class="pill">Local</div>
+            </div>
+            <p>“Lottery, beer, soda, ice, snacks, candy, milk, eggs cheese. This is a local business thats been around for decades. We as a community need to support this local business.”</p>
+            <div class="by">— Google review</div>
+          </div>
+
+          <div class="review">
+            <div class="top">
+              <div style="font-weight:900;">Friendly service</div>
+              <div class="pill">Welcoming</div>
+            </div>
+            <p>“This friendly little store has become my favorite go to place for refreshment… A well kept place with friendly service. Check them out when you get a chance.”</p>
+            <div class="by">— Google review</div>
+          </div>
+
+          <div class="review">
+            <div class="top">
+              <div style="font-weight:900;">Worth the extra blocks</div>
+              <div class="pill">Recommended</div>
+            </div>
+            <p>“This family is worth the few blocks past that other market off pioneer.”</p>
+            <div class="by">— Google review</div>
+          </div>
+
+          <div class="review">
+            <div class="top">
+              <div style="font-weight:900;">From the team</div>
+              <div class="pill">Gratitude</div>
+            </div>
+            <p>“This is where i work. The customers that come in make us who we are. You guys are amazing!!”</p>
+            <div class="by">— Staff note</div>
+          </div>
+
+          <div class="review">
+            <div class="top">
+              <div style="font-weight:900;">Ken & Carolyn</div>
+              <div class="pill">Thank you</div>
+            </div>
+            <p>“We would like to thank everyone who took the time to write in such nice things about the Bungalow Market and that they really appreciate your business and friendship.”</p>
+            <div class="by">— Ken & Carolyn (via staff)</div>
+          </div>
+        </div>
+
+        <p class="fine" style="margin-top:14px;">
+          Note: Review excerpts are shown as provided. If you want, we can shorten them slightly for readability while keeping the meaning the same.
+        </p>
+      </div>
+    </section>
+
+    <section id="visit" class="section">
+      <div class="wrap">
+        <div class="twoCol">
+          <div class="mapCard">
+            <div class="mapTop">
+              <div class="title">Visit Bungalow Market</div>
+              <div class="meta">30 E St, Springfield, OR 97477</div>
+            </div>
+            <div class="mapBody">
+              <div class="kv"><span>Address</span><strong>Bungalow Market, 30 E St, Springfield, OR 97477</strong></div>
+              <div class="kv"><span>Hours</span><strong>Update with official hours</strong></div>
+              <div class="kv"><span>Rating</span><strong>4.2 ⭐ (200+ reviews)</strong></div>
+
+              <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:6px;">
+                <a class="btn secondary" target="_blank" rel="noreferrer"
+                   href="https://www.google.com/maps/search/?api=1&query=Bungalow%20Market%2C%2030%20E%20St%2C%20Springfield%2C%20OR%2097477">
+                  Get Directions
+                </a>
+                <a class="btn" target="_blank" rel="noreferrer"
+                   href="https://www.google.com/search?q=Bungalow+Market+30+E+St+Springfield+OR+97477+reviews">
+                  View Reviews
+                </a>
+              </div>
+            </div>
+            <div class="ctaBand">
+              <div>
+                <div style="font-weight:900;">Want a “Weekly Specials” section?</div>
+                <div style="color:var(--muted); font-weight:650; font-size:14px; margin-top:2px;">
+                  Add photos + specials + a contact form to convert more walk-ins.
+                </div>
+              </div>
+              <a class="btn" href="#about">Back to top</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="inner">
+              <h2 style="margin:0 0 10px;">Next upgrades that close sales</h2>
+              <p class="lead" style="margin:0 0 14px;">
+                If you add 6–10 real photos (storefront, aisles, snacks, coolers, wide interior),
+                this will look 100% legit and “owned.”
+              </p>
+
+              <div class="feature" style="margin-top:10px;">
+                <h3 style="margin:0 0 6px;">Optional add-ons (upsells)</h3>
+                <p style="margin:0; color:var(--muted); font-size:14px;">
+                  • Photo gallery<br/>
+                  • Weekly specials page<br/>
+                  • Simple contact form<br/>
+                  • Basic local SEO (keywords + title tags)<br/>
+                  • Google Business Profile cleanup
+                </p>
+              </div>
+
+              <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+                <a class="btn secondary" href="#reviews">Reviews</a>
+                <a class="btn" href="#highlights">Highlights</a>
+              </div>
+
+              <p class="fine" style="margin-top:14px;">
+                Hosted free on GitHub Pages. Optional: connect a custom domain (~$12–$20/year).
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap" style="display:flex; flex-wrap:wrap; gap:14px; justify-content:space-between; align-items:center;">
+      <div>
+        <strong style="color:var(--text)">Bungalow Market</strong>
+        <span style="margin:0 8px;color:var(--line)">•</span>
+        <span>30 E St, Springfield, OR 97477</span>
+      </div>
+      <div class="fine">
+        © <span id="year"></span> Bungalow Market
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
